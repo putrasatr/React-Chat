@@ -1,0 +1,62 @@
+body{
+  background-image:url('./wp4410716.jpg');
+}
+#but-display{
+  border-radius: 50px;
+}
+#but-Display{
+  border-radius: 50px;
+}
+#btn-post{
+  background-color: #377bb5;
+  color: white;
+}
+#box-button{
+  border-radius: 50px;
+  position: absolute;
+  background-color:#f5f5f6;
+  padding: 10px;
+  z-index: 1;
+}
+#but-display ::after{
+  content: url('./Screenshot_2021-02-06\ React\ App.png');
+  position: absolute;
+  rotate: 45deg;
+   left:85px;
+  bottom:6px;
+  z-index: 4;
+}
+
+#box-chat{
+  top: 100px;
+  background-color:#f5f5f6;
+  padding: 50px;
+  border-radius: 10px;
+}
+#box-chat-resend{
+  top: 100px;
+  background-color:#f7613b;
+  padding: 50px;
+  border-radius: 10px;
+}
+#header-chat{
+  background-color: #f5f5f6;
+  box-shadow: 0 1px 4px 0 rgba(122, 122, 122, 0.2), 0 0 0 1px rgba(214, 214, 214, 0.25);
+}
+.garis{
+  width: 5px;
+  height:150%;
+background-color:#f5f5f6 ;
+}
+.garis-form{
+  width: 5px;
+  height:90%;
+background-color:#f5f5f6 ;
+}
+.bg-ganjil{
+  background-color: #a8a8a8;
+}
+.bg-genap{
+  background-color: #cbc7c4;
+}
+
