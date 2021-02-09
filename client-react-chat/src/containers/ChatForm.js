@@ -45,7 +45,9 @@ class ChatForm extends Component {
                     <div className="position-absolute garis-form">
                     </div>
                     <div className="position-absolute" id="box-button">
-                        <div onClick={this.handleDisplay} className="btn bg-white" id={this.state.display === "" ? "but-display" : "but-Display"}><span className={this.state.display === "" ? "fa fa-minus" : "fa fa-plus"}></span></div>
+                        <div onClick={this.handleDisplay} 
+                        className="btn bg-white" 
+                        id="but-Display"><span className={this.state.display ? "fa fa-plus" : "fa fa-minus"}></span></div>
                     </div>
                 </div>
                 <div className="col-md-11">

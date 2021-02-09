@@ -10,7 +10,6 @@ export default class ChatList extends Component {
         }
     }
     render() {
-        console.log("check di chatlist:",this.props.message)
         const dataNode = this.props.message.map((item, index) =>
             <ChatItem
                 key={index}

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { deleteChat, resendChat } from '../actions/message';
 import { connect } from 'react-redux';
+import ReactMarkdown from 'react-markdown'
 import Swal from 'sweetalert2';
 
 class ChatItem extends Component {
@@ -38,7 +39,7 @@ class ChatItem extends Component {
     handleDelete() {
         Swal.fire({
             title: 'Are you sure?',
-            text: "You're data can't restore again!",
+            text: "Message can't restore again!",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
@@ -47,10 +48,14 @@ class ChatItem extends Component {
         }).then((result) => {
             if (result.isConfirmed) {
                 this.props.deleteChat(this.props.id)
-                Swal.fire(
-                    'Deleted!',
-                    'Your file has been deleted.',
-                    'success'
+                Swal.fire({
+                    title: 'Deleted!',
+                    text: 'Message has been deleted.',
+                    icon: 'success',
+                    showConfirmButton: false,
+                    timer: 800
+                }
+
                 )
             }
         })
@@ -58,11 +63,20 @@ class ChatItem extends Component {
     }
 
     render() {
-        console.log("tanggal", this.props.date)
-        const createdAt = this.props.date
-        const createdAtDate = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'long', day: '2-digit' }).format(createdAt);
-        const createdAtTime = new Intl.DateTimeFormat('en-US', { hour: '2-digit', minute: '2-digit' }).format(createdAt);
-console.log(createdAtDate,createdAtTime)
+        const created_chat = this.props.date
+        const Date = new Intl.DateTimeFormat('en-US',
+            {
+                year: 'numeric',
+                month: 'long',
+                day: '2-digit'
+            })
+            .format(created_chat);
+        const Time = new Intl.DateTimeFormat('en-US',
+            {
+                hour: '2-digit',
+                minute: '2-digit'
+            })
+            .format(created_chat);
         return (
             <div>
                 <div className="row mt-3">
@@ -79,12 +93,16 @@ console.log(createdAtDate,createdAtTime)
                     </div>
                     <div className="col-md-11 mb-2">
                         <div className={this.state.display} id="box-chat">
-                            <div className="panel-heder"><small>{createdAtDate} {createdAtTime}</small></div>
+                            <div className="panel-heder"><small>{Date} {Time}</small></div>
                             <div className="row">
                                 <div className="col-md-11">
-                                    <small className="text-danger">{this.props.sent ? "" : "Gagal Terkirim!!"}</small>
-                                    <h1>{this.props.sender}</h1><br />
-                                    <div className="text-lg">{this.props.message}</div>
+                                    <small className="text-danger">{!this.props.sent && "Failed To Send!!"}</small>
+                                    <div className="p-2">
+                                        <h2>{this.props.sender}</h2><br />
+                                    </div>
+                                    <div className="lead">
+                                        <ReactMarkdown source={this.props.message} />
+                                    </div>
                                 </div>
 
                                 <div className="col-md-1">

@@ -20,12 +20,11 @@ class ChatBox extends Component {
         super(props)
     }
     render() {
-        console.log("ck  di ctbox:",this.props.message)
         return (
             <div className="container d-flex flex-column">
                 <div className="mt-5"  >
                     <div className="alert mt-4" id="header-chat" role="alert">
-                        <h1 className="display-7 text-center"><b>React Chat</b></h1>
+                        <h1 className="display-7 text-center"><i className="fa fa-whatsapp"></i> React Chat</h1>
                     </div>
                 </div>
                 <div className="mb-3">
