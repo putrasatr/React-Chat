@@ -5,9 +5,6 @@ import '../App.css'
 export default class ChatList extends Component {
     constructor(props) {
         super(props)
-        this.state = {
-            display: ""
-        }
     }
     render() {
         const dataNode = this.props.message.map((item, index) =>

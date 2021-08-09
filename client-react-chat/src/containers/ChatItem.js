@@ -10,6 +10,7 @@ class ChatItem extends Component {
         this.state = {
             sender: this.props.sender || '',
             message: this.props.message || '',
+            refresh: false,
             display: ""
         }
         this.handleInputChange = this.handleInputChange.bind(this)
@@ -29,7 +30,33 @@ class ChatItem extends Component {
     }
 
     handleResend() {
-        this.props.resendChat(this.props.id, this.state.sender, this.state.message)
+        this.setState({
+            refresh: !this.state.refresh
+        })
+        function delay(t, v) {
+            return new Promise(function (resolve) {
+                setTimeout(resolve.bind(null, v), t)
+            });
+        }
+
+        Promise.prototype.delay = function (t) {
+            return this.then(function (v) {
+                return delay(t, v);
+            });
+        }
+
+        try {
+            let Class = this
+            Promise.resolve("hello").delay(2100).then(function (v) {
+                Class.setState({ refresh: !Class.state.refresh })
+                Class.props.resendChat(Class.props.id, Class.state.sender, Class.state.message)
+                console.log(v);
+            });
+        } catch (error) {
+            return
+        }
+
+
     }
     handleDisplay(event) {
         this.setState({
@@ -87,7 +114,7 @@ class ChatItem extends Component {
                             <div onClick={this.props.sent ? this.handleDisplay : this.handleResend}
                                 className={`btn ${this.props.sent ? this.props.no % 2 === 0 ? "bg-genap" : "bg-ganjil" : "bg-danger"}`}
                                 id={this.state.display === "" ? "but-display" : "but-Display"}>
-                                <span className={this.props.sent ? this.state.display === "" ? "fa fa-minus text-white" : "fa fa-plus text-white" : "fa fa-refresh"}></span>
+                                <span className={this.props.sent ? this.state.display === "" ? "fa fa-minus text-white" : "fa fa-plus text-white" : this.state.refresh ? "fa fa-refresh active" : "fa fa-refresh"}></span>
                             </div>
                         </div>
                     </div>
@@ -96,7 +123,7 @@ class ChatItem extends Component {
                             <div className="panel-heder"><small>{Date} {Time}</small></div>
                             <div className="row">
                                 <div className="col-md-11">
-                                    <small className="text-danger">{!this.props.sent && "Failed To Send!!"}</small>
+                                    <small className="text-danger">{!this.props.sent && !this.state.refresh && "Failed To Send!!"}</small>
                                     <div className="p-2">
                                         <h2>{this.props.sender}</h2><br />
                                     </div>

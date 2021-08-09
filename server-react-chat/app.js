@@ -9,7 +9,8 @@ mongoose.connect('mongodb://localhost/db_chat', {useNewUrlParser: true, useUnifi
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-var ApiRouter = require('./routes/api-chat')
+var ApiRouter = require('./routes/api-chat');
+const { endianness } = require('os');
 
 var app = express();
 
@@ -26,3 +27,21 @@ app.use('/api', ApiRouter);
 
 
 module.exports = app;
+
+
+function delay(t, v) {
+    return new Promise(function(resolve) { 
+        setTimeout(resolve.bind(null, v), t)
+    });
+ }
+ 
+ Promise.prototype.delay = function(t) {
+     return this.then(function(v) {
+         return delay(t, v);
+     });
+ }
+ 
+ 
+ Promise.resolve("hello").delay(1000).then(function(v) {
+     console.log(v);
+ });

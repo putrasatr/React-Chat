@@ -48,7 +48,6 @@ function* postChat(payload) {
     try {
         const data = yield call(add, PATH, { id, sender, message })
         socket.emit('chat', data)
-        console.log('Send Emit')
         yield put(actions.addChatSuccess(data))
     } catch (error) {
         yield put(actions.addChatFailure(id))
