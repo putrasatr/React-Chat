@@ -97,14 +97,14 @@ server.on('listening', onListening);
 
 const io = require('socket.io')(connectSocket, {
   cors: {
-    origin: "http://192.168.1.58:3001",
+    origin: "http://localhost:3001",
     methods: ["GET", "POST"]
   }
 });
 
 io.on('connection', socket => {
-  console.log('connected', socket.id);
   socket.on('chat', function (data) {
+    console.log('connected', socket.id);
     socket.broadcast.emit('loadChat');
   });
 })
